@@ -1,0 +1,27 @@
+name: TestDriver
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # lets testdriverai/action exchange an OIDC token for your team's key
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - name: Authenticate to TestDriver
+        uses: testdriverai/action@stable
+        with:
+          api-key: ${{ secrets.TD_API_KEY }} # fallback if OIDC isn't set up
+      - name: Run TestDriver tests
+        run: npx vitest run

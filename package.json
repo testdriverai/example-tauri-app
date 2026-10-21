@@ -1,0 +1,13 @@
+{
+  "name": "example-tauri-app",
+  "private": true,
+  "type": "module",
+  "description": "How to Test a Tauri App End-to-End (No WebDriver Needed)",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "testdriverai": "latest",
+    "vitest": "^4.0.18"
+  }
+}
